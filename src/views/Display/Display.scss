@@ -1,0 +1,15 @@
+.books {
+  display: inline-block;
+  padding: 10px;
+  position: relative;
+  background-color: lightgrey;
+
+  table {
+    text-align: left;
+
+    th, td {
+      height: 20px;
+      padding: 5px;
+    };
+  }
+}

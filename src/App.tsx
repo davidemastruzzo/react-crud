@@ -1,26 +1,32 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './App.scss';
+import {Display} from "./views/Display/Display"
+import {Book} from "./models/Book";
 
-const App: React.FC = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+let books: Book[] = [
+    {
+      id: 1,
+      author: "Stephen Chbosky" ,
+      title: "The Perks of being a Wallflower",
+      pages: 256,
+      releasedAt: new Date(1999,2,1)
+    },
+    {
+        id: 2,
+        author: "Eckhart Tolle" ,
+        title: "The Power of Now",
+        pages: 236,
+        releasedAt: new Date(1997, 1 ,1)
+    },
+];
+
+export class App extends React.Component<{}, {}> {
+
+    render(): React.ReactNode {
+        return (
+            <div className="App">
+                <Display books={books}/>
+            </div>
+        )
+    }
 }
-
-export default App;
