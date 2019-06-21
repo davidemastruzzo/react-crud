@@ -3,22 +3,14 @@ import {Book} from "../../models/Book";
 import './Display.scss'
 
 interface Props {
-    books: Set<Book>;
+    books: Array<Book>;
     onDelete: (book: Book) => void;
 }
 
-interface State {
-    availableBooks: Set<Book>;
-}
-
-export class Display extends React.Component<Props, State> {
+export class Display extends React.Component<Props> {
 
     public constructor(props: Props) {
         super(props);
-
-        this.state = {
-            availableBooks: this.props.books
-        };
     };
 
     public render() {
@@ -34,8 +26,7 @@ export class Display extends React.Component<Props, State> {
                         <th>Pages</th>
                         <th>Released At</th>
                     </tr>
-                    {this.state.availableBooks.forEach((book) => {
-                        console.log(book);
+                    {this.props.books.map((book) => {
                         return (
                             <tr key={book.id}>
                                 <td>{book.id}</td>

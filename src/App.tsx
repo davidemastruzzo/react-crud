@@ -4,7 +4,7 @@ import {Display} from "./views/Display/Display"
 import {Book} from "./models/Book";
 
 interface State {
-    books: Set<Book>;
+    books: Array<Book>;
 }
 
 export class App extends React.Component<{}, State> {
@@ -13,7 +13,7 @@ export class App extends React.Component<{}, State> {
         super(props);
 
         this.state = {
-            books: new Set([
+            books: [
                 {
                     id: 1,
                     author: "Stephen Chbosky" ,
@@ -28,7 +28,7 @@ export class App extends React.Component<{}, State> {
                     pages: 236,
                     releasedAt: new Date(1997, 1 ,1)
                 },
-            ])
+            ]
         };
         this.deleteBook = this.deleteBook.bind(this);
     }
@@ -42,6 +42,7 @@ export class App extends React.Component<{}, State> {
     }
 
     private deleteBook(book: Book) {
-        this.state.books.delete(book);
+        const newState = this.state.books.filter((b) => b.id !== book.id);
+        this.setState({books: [...newState]});
     }
 }
