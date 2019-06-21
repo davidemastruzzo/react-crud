@@ -3,13 +3,22 @@ import {Book} from "../../models/Book";
 import './Display.scss'
 
 interface Props {
-    books: Book[];
+    books: Set<Book>;
+    onDelete: (book: Book) => void;
 }
 
-export class Display extends React.Component<Props, {}> {
+interface State {
+    availableBooks: Set<Book>;
+}
+
+export class Display extends React.Component<Props, State> {
 
     public constructor(props: Props) {
         super(props);
+
+        this.state = {
+            availableBooks: this.props.books
+        };
     };
 
     public render() {
@@ -17,6 +26,7 @@ export class Display extends React.Component<Props, {}> {
         return (
             <div className="books">
                 <table>
+                    <tbody>
                     <tr>
                         <th>Id</th>
                         <th>Author</th>
@@ -24,19 +34,36 @@ export class Display extends React.Component<Props, {}> {
                         <th>Pages</th>
                         <th>Released At</th>
                     </tr>
-                    {this.props.books.map((b) => {
+                    {this.state.availableBooks.forEach((book) => {
+                        console.log(book);
                         return (
-                            <tr>
-                                <td>{b.id}</td>
-                                <td>{b.author}</td>
-                                <td>{b.title}</td>
-                                <td>{b.pages}</td>
-                                <td>{b.releasedAt.getDay() + "/" +b.releasedAt.getMonth() + "/" + b.releasedAt.getFullYear()}</td>
+                            <tr key={book.id}>
+                                <td>{book.id}</td>
+                                <td>{book.author}</td>
+                                <td>{book.title}</td>
+                                <td>{book.pages}</td>
+                                <td>{book.releasedAt.getDay() + "/" + book.releasedAt.getMonth() + "/" + book.releasedAt.getFullYear()}</td>
+                                <td>
+                                    <button onClick={() => this.onDelete(book)}>
+                                        Delete
+                                    </button>
+                                </td>
+                                <td>
+                                    <button>
+                                        Edit
+                                    </button>
+                                </td>
                             </tr>
                         );
                     })}
+                    </tbody>
                 </table>
             </div>
+
         );
     };
+
+    private onDelete(book: Book) {
+        this.props.onDelete(book);
+    }
 }
